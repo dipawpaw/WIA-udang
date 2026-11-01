@@ -1,10 +1,4 @@
-/* ==========================================================================
-   Cityzen Design System — app.css
-   Sections: Tokens · Base · Buttons · Navbar · Hero · Feature Cards ·
-             How It Works · Public Pulse · CTA · Footer · Auth Forms · Responsive
-   ========================================================================== */
 
-/* ---------- Tokens ---------- */
 :root {
     --cityzen-surface: #F9F9FF;
     --cityzen-white: #FFFFFF;
@@ -21,12 +15,12 @@
     --cityzen-border: #E2E7F3;
     --cityzen-input-border: #CFD8EB;
     --cityzen-muted: #F3F5FA;
-    --cityzen-tint: #E9EDFF;            /* section biru muda */
+    --cityzen-tint: #E9EDFF;           
     --cityzen-chip: #E8EDF9;
 
     --cityzen-deep: #14366D;
-    --cityzen-night: #00194C;           /* footer */
-    --cityzen-cta: #1F3868;             /* kotak CTA di screenshot */
+    --cityzen-night: #00194C;           
+    --cityzen-cta: #1F3868;            
 
     --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
     --font-body: 'Inter', system-ui, sans-serif;
