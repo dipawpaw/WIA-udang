@@ -20,19 +20,47 @@
             <h1 class="auth-card__title">Masuk ke Cityzen</h1>
             <p class="auth-card__subtitle">Pantau laporanmu dan lihat progres penanganannya.</p>
 
-            <form action="#" method="POST" novalidate>
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" autocomplete="email" required>
+                    <input
+                        type="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        id="email"
+                        name="email"
+                        placeholder="nama@email.com"
+                        autocomplete="email"
+                        value="{{ old('email') }}"
+                        required
+                    >
+
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-field">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" autocomplete="current-password" required>
-                        <button type="button" class="password-toggle" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        <input
+                            type="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            id="password"
+                            name="password"
+                            placeholder="Masukkan password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button type="button" class="password-toggle" aria-label="Tampilkan password">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
+
+                    @error('password')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <button type="submit" class="btn-cityzen">Masuk</button>
