@@ -20,31 +20,84 @@
             <h1 class="auth-card__title">Daftar ke Cityzen</h1>
             <p class="auth-card__subtitle">Buat akun untuk mulai melapor dan memantau.</p>
 
-            <form action="#" method="POST" novalidate>
+            <form action="{{ route('register') }}" method="POST">
                 @csrf
+
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama sesuai KTP" autocomplete="name" required>
+                    <input
+                        type="text"
+                        class="form-control @error('name') is-invalid @enderror"
+                        id="name"
+                        name="name"
+                        placeholder="Nama sesuai KTP"
+                        autocomplete="name"
+                        value="{{ old('name') }}"
+                        required
+                    >
+
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" autocomplete="email" required>
+                    <input
+                        type="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        id="email"
+                        name="email"
+                        placeholder="nama@email.com"
+                        autocomplete="email"
+                        value="{{ old('email') }}"
+                        required
+                    >
+
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-field">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Minimal 8 karakter" autocomplete="new-password" required>
-                        <button type="button" class="password-toggle" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        <input
+                            type="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            id="password"
+                            name="password"
+                            placeholder="Minimal 8 karakter"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button type="button" class="password-toggle" aria-label="Tampilkan password">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
-                </div>
+
+                    @error('password')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>                
 
                 <div class="mb-3">
                     <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                     <div class="password-field">
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Ulangi password" autocomplete="new-password" required>
-                        <button type="button" class="password-toggle" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            placeholder="Ulangi password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button type="button" class="password-toggle" aria-label="Tampilkan password">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
                 </div>
 
