@@ -20,7 +20,7 @@
             <h1 class="auth-card__title">Masuk ke Cityzen</h1>
             <p class="auth-card__subtitle">Pantau laporanmu dan lihat progres penanganannya.</p>
 
-            <form action="#" method="POST" novalidate>
+            <form action="#" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -31,7 +31,9 @@
                     <label for="password" class="form-label">Password</label>
                     <div class="password-field">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" autocomplete="current-password" required>
-                        <button type="button" class="password-toggle" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        <button type="button" class="password-toggle">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -41,5 +43,6 @@
             <p class="auth-card__switch">Belum punya akun? <a href="/register">Daftar</a></p>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -54,5 +54,6 @@
             <p class="auth-card__switch">Sudah punya akun? <a href="/login">Masuk</a></p>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

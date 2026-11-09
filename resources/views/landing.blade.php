@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-lg cz-navbar sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/">Cityzen</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#czNav" aria-controls="czNav" aria-expanded="false" aria-label="Buka menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#czNav">
                 <i class="bi bi-list fs-3"></i>
             </button>
             <div class="collapse navbar-collapse" id="czNav">
@@ -167,9 +167,11 @@
                     <div class="col-lg-6">
                         <div class="rating-box">
                             <div class="rating-box__title">Kasih nilai untuk wilayahmu</div>
-                            <div class="rating-box__stars" role="radiogroup" aria-label="Beri nilai bintang">
+                            <div class="rating-box__stars" role="radiogroup">
                                 @for ($i = 1; $i <= 5; $i++)
-                                    <button type="button" class="rating-star" data-value="{{ $i }}" aria-label="{{ $i }} bintang"><i class="bi bi-star-fill"></i></button>
+                                    <button type="button" class="rating-star" data-value="{{ $i }}" aria-label="{{ $i }} bintang">
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
                                 @endfor
                             </div>
                             <p class="rating-box__hint">Ketuk bintang untuk memberi skor</p>
