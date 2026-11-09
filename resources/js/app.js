@@ -63,3 +63,81 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 });
+
+// ---------------------------------------------------------------------------
+// Dashboard: sidebar offcanvas (mobile) + grafik Chart.js. Hanya aktif jika elemennya ada.
+// ---------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    // Sidebar offcanvas
+    const toggles = document.querySelectorAll('[data-sidebar-toggle]');
+    const setOpen = (open) => {
+        document.body.classList.toggle('sidebar-open', open);
+        document.querySelectorAll('.cz-topbar__menu').forEach((b) => b.setAttribute('aria-expanded', String(open)));
+    };
+    toggles.forEach((el) => el.addEventListener('click', () => setOpen(!document.body.classList.contains('sidebar-open'))));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
+ 
+    if (!window.Chart) return;
+    const css = getComputedStyle(document.documentElement);
+    const text = css.getPropertyValue('--cityzen-text').trim() || '#081F44';
+    const muted = css.getPropertyValue('--cityzen-text-secondary').trim() || '#434750';
+    const light = css.getPropertyValue('--cityzen-primary-light').trim() || '#B7C3E8';
+    Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+ 
+    // Grafik batang: penuntasan tepat waktu
+    const bar = document.getElementById('chartOnTime');
+    if (bar) {
+        const labels = JSON.parse(bar.dataset.labels);
+        const values = JSON.parse(bar.dataset.values);
+        const colors = values.map((_, i) => (i === values.length - 1 ? '#3558A8' : light));
+ 
+        const valueLabels = {
+            id: 'valueLabels',
+            afterDatasetsDraw(chart) {
+                const { ctx } = chart;
+                ctx.save();
+                ctx.font = "700 12px 'Plus Jakarta Sans', 'Inter', sans-serif";
+                ctx.fillStyle = text;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                chart.getDatasetMeta(0).data.forEach((b, i) => ctx.fillText(values[i] + '%', b.x, b.y - 6));
+                ctx.restore();
+            },
+        };
+ 
+        new Chart(bar, {
+            type: 'bar',
+            data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: { topLeft: 6, topRight: 6 }, borderSkipped: 'bottom', barPercentage: 0.5, categoryPercentage: 1 }] },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { top: 22 } },
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => ` ${c.parsed.y}% selesai tepat waktu` } } },
+                scales: {
+                    y: { min: 0, max: 100, display: false },
+                    x: { grid: { display: false }, border: { color: '#E2E7F3' }, ticks: { color: muted, font: { size: 12 } } },
+                },
+            },
+            plugins: [valueLabels],
+        });
+    }
+ 
+    // Grafik donat: status laporan
+    const donut = document.getElementById('chartStatus');
+    if (donut) {
+        new Chart(donut, {
+            type: 'doughnut',
+            data: {
+                labels: JSON.parse(donut.dataset.labels),
+                datasets: [{ data: JSON.parse(donut.dataset.values), backgroundColor: JSON.parse(donut.dataset.colors), borderWidth: 0, hoverOffset: 4 }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '74%',
+                plugins: { legend: { display: false } },
+            },
+        });
+    }
+});

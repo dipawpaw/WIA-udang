@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -5,7 +6,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminReportController;
-
 
 // Halaman landing
 Route::get('/', function () {
@@ -23,8 +23,25 @@ Route::middleware('guest')->group(function () {
 
 // Route untuk pengguna yang sudah login
 Route::middleware('auth')->group(function () {
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // Homepage
+    Route::get('/homepage', function () {
+        return view('homepage.index');
+    })->name('homepage');
+
+    // ADUIN
+    Route::get('/aduin', function () {
+        return view('aduin.index');
+    })->name('aduin.index');
+
+    // AKTIVITAS SAYA
+    Route::get('/aktivitas', function () {
+        return view('aktivitas.index');
+    })->name('aktivitas.index');
+
+    // Route backend laporan
     Route::post('/reports', [ReportController::class, 'store'])
         ->name('reports.store');
 
@@ -34,15 +51,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/{id}', [ReportController::class, 'show'])
         ->name('reports.show');
 
+    Route::get('/reports/{id}/history', [ReportController::class, 'history'])
+        ->name('reports.history');
+
     Route::get('/dashboard', [ReportController::class, 'dashboard'])
         ->name('dashboard');
 
+    // JELAJAHI
+    // Tetap menggunakan controller backend agar fungsi sebelumnya tidak hilang.
     Route::get('/jelajahi', [ReportController::class, 'explore'])
         ->name('reports.explore');
+
+    // WAWASAN
+    Route::get('/wawasan', function () {
+        return view('wawasan.index');
+    })->name('wawasan.index');
 
     Route::get('/wawasan-kota', [ReportController::class, 'insights'])
         ->name('reports.insights');
 
+    // PROFIL
     Route::get('/profil', [ProfileController::class, 'show'])
         ->name('profile.show');
 
@@ -51,20 +79,17 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/profil/password', [ProfileController::class, 'updatePassword'])
         ->name('profile.password');
-    
-    Route::get('/reports/{id}/history', [ReportController::class, 'history'])
-        ->name('reports.history');
 
     // Route khusus Admin dan Petugas
     Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/reports', [AdminReportController::class, 'index'])
-        ->name('reports.index');
+        Route::get('/reports', [AdminReportController::class, 'index'])
+            ->name('reports.index');
 
-    Route::get('/reports/{id}', [AdminReportController::class, 'show'])
-        ->name('reports.show');
+        Route::get('/reports/{id}', [AdminReportController::class, 'show'])
+            ->name('reports.show');
 
-    Route::put('/reports/{id}/status', [AdminReportController::class, 'updateStatus'])
-        ->name('reports.status');
+        Route::put('/reports/{id}/status', [AdminReportController::class, 'updateStatus'])
+            ->name('reports.status');
     });
 });
