@@ -43,10 +43,6 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-field">
-<<<<<<< HEAD
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" autocomplete="current-password" required>
-                        <button type="button" class="password-toggle">
-=======
                         <input
                             type="password"
                             class="form-control @error('password') is-invalid @enderror"
@@ -58,7 +54,6 @@
                         >
 
                         <button type="button" class="password-toggle" aria-label="Tampilkan password">
->>>>>>> 2500758a4f0e9fc1fe132ae1ec633c6774354159
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>

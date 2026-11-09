@@ -28,7 +28,7 @@
                     <li class="nav-item"><a class="nav-link" href="#cara-kerja">Cara Kerja</a></li>
                     <li class="nav-item"><a class="nav-link" href="#public-pulse">Public Pulse</a></li>
                 </ul>
-                <a class="nav-login ms-lg-auto px-lg-0 px-3 py-2" href="/login">Masuk</a>
+                <a class="nav-login ms-lg-auto px-lg-0 px-3 py-2" href="{{ route('login') }}">Masuk</a>
             </div>
         </div>
     </nav>
@@ -41,7 +41,7 @@
                     <h1 class="hero__title">Ada yang rusak di sekitarmu? Laporkan, lalu pantau sampai beres.</h1>
                     <p class="hero__desc">Foto, kirim, dan lihat sendiri laporanmu sudah sampai tahap mana di dinas terkait. Tingkat kepuasan warga di lingkunganmu juga bisa dipantau lewat Public Pulse.</p>
                     <div class="hero__actions">
-                        <a href="/register" class="btn-cityzen">Mulai melapor →</a>
+                        <a href="{{ route('register') }}" class="btn-cityzen">Mulai melapor →</a>
                         <a href="#fitur" class="btn-cityzen-soft">Pelajari lebih lanjut</a>
                     </div>
                 </div>
@@ -190,8 +190,8 @@
                 <h2 class="cta__title">Yuk, bikin kotamu lebih nyaman dan sigap</h2>
                 <p class="cta__text">Gabung bersama ribuan warga lain yang ikut menjaga lingkungannya tetap transparan, aman, dan ramah untuk semua orang di seluruh Indonesia.</p>
                 <div class="cta__actions">
-                    <a href="/register" class="btn-cityzen-light">Daftar sekarang</a>
-                    <a href="/login" class="btn-cityzen-ghost">Masuk akun</a>
+                    <a href="{{ route('register') }}" class="btn-cityzen-light">Daftar sekarang</a>
+                    <a href="{{ route('login') }}" class="btn-cityzen-ghost">Masuk akun</a>
                 </div>
             </div>
         </div>
