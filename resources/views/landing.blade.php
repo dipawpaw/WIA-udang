@@ -13,7 +13,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+    <body>
 
+    <div style="padding: 20px; background: yellow;">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">
+                Logout
+            </button>
+        </form>
+    </div>
+    
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg cz-navbar sticky-top">
         <div class="container">
@@ -217,5 +227,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
