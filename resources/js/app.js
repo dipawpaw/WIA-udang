@@ -1,5 +1,3 @@
-// Cityzen — interaksi frontend ringan (tanpa framework)
-
 document.addEventListener('DOMContentLoaded', () => {
     // Rating bintang interaktif (Public Pulse)
     const stars = document.querySelectorAll('.rating-star');
@@ -45,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sections.length && 'IntersectionObserver' in window) {
         const setActive = (hash) => {
-            links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === hash));
+            links.forEach((a) => 
+                a.classList.toggle('active', a.getAttribute('href') === hash));
         };
         const observer = new IntersectionObserver(
             (entries) => {
