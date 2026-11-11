@@ -31,17 +31,17 @@ Route::middleware('auth')->group(function () {
         return view('homepage.index');
     })->name('homepage');
 
-    // ADUIN
+    // Aduin
     Route::get('/aduin', function () {
         return view('aduin.index');
     })->name('aduin.index');
 
-    // AKTIVITAS SAYA
+    // Aktivitas Saya
     Route::get('/aktivitas', function () {
         return view('aktivitas.index');
     })->name('aktivitas.index');
 
-    // Route backend laporan
+    // Backend laporan
     Route::post('/reports', [ReportController::class, 'store'])
         ->name('reports.store');
 
@@ -57,12 +57,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [ReportController::class, 'dashboard'])
         ->name('dashboard');
 
-    // JELAJAHI
-    // Tetap menggunakan controller backend agar fungsi sebelumnya tidak hilang.
+    // Jelajahi
     Route::get('/jelajahi', [ReportController::class, 'explore'])
         ->name('reports.explore');
 
-    // WAWASAN
+    // Wawasan
     Route::get('/wawasan', function () {
         return view('wawasan.index');
     })->name('wawasan.index');
@@ -70,7 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/wawasan-kota', [ReportController::class, 'insights'])
         ->name('reports.insights');
 
-    // PROFIL
+    // Profil backend
     Route::get('/profil', [ProfileController::class, 'show'])
         ->name('profile.show');
 
@@ -79,6 +78,11 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/profil/password', [ProfileController::class, 'updatePassword'])
         ->name('profile.password');
+
+    // Halaman profil frontend
+    Route::get('/profile', function () {
+        return view('profile.index');
+    })->name('profile.index');
 
     // Route khusus Admin dan Petugas
     Route::prefix('admin')->name('admin.')->group(function () {
