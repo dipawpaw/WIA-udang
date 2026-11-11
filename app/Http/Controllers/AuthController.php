@@ -39,7 +39,8 @@ class AuthController extends Controller {
 
         $request->session()->regenerate();
 
-        return redirect('/')->with('success', 'Registrasi berhasil. Selamat datang di Cityzen!');
+        return redirect()->route('homepage')
+            ->with('success', 'Registrasi berhasil. Selamat datang di Cityzen!');
     }
 
     // Memproses login pengguna
@@ -53,7 +54,8 @@ class AuthController extends Controller {
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/')->with('success', 'Login berhasil.');
+            return redirect()->route('homepage')
+                ->with('success', 'Login berhasil.');
         }
 
         return back()->withErrors([

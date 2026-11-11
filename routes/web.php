@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -19,30 +20,32 @@ Route::middleware('guest')->group(function () {
 
 // Route untuk pengguna yang sudah login
 Route::middleware('auth')->group(function () {
+
+    // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Homepage
+    Route::get('/homepage', function () {
+        return view('homepage.index');
+    })->name('homepage');
+
+    // ADUIN
+    Route::get('/aduin', function () {
+        return view('aduin.index');
+    })->name('aduin.index');
+
+    // JELAJAHI
+    Route::get('/jelajahi', function () {
+        return view('jelajahi.index');
+    })->name('jelajahi.index');
+
+    // AKTIVITAS
+    Route::get('/aktivitas', function () {
+        return view('aktivitas.index');
+    })->name('aktivitas.index');
+
+    // WAWASAN
+    Route::get('/wawasan', function () {
+        return view('wawasan.index');
+    })->name('wawasan.index');
 });
-
-// Homepage
-Route::get('/homepage', function () {
-    return view('homepage.index');
-});
-
-// ADUIN
-Route::get('/aduin', function () {
-    return view('aduin.index');
-})->name('aduin.index');
-
-// JELAJAHI
-Route::get('/jelajahi', function () {
-    return view('jelajahi.index');
-})->name('jelajahi.index');
-
-// AKTIVITAS
-Route::get('/aktivitas', function () {
-    return view('aktivitas.index');
-})->name('aktivitas.index');
-
-// WAWASAN
-Route::get('/wawasan', function () {
-    return view('wawasan.index');
-})->name('wawasan.index');
