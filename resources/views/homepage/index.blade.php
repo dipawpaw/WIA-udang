@@ -43,7 +43,7 @@
             <h2 class="dash-hero__title">Wujudkan lingkungan yang lebih nyaman, bersih, dan tertata bersama Cityzen</h2>
             <p class="dash-hero__desc">Pantau aduan langsung ke dinas terkait dan nilai mutu pelayanan kota secara real-time.</p>
             <div class="dash-hero__actions">
-                <a href="{{ route('aktivitas.index') }}" class="dash-btn dash-btn--light">Lihat Pencapaian <x-icon name="arrow-right" :size="16" /></a>
+                <a href="#" class="dash-btn dash-btn--light">Lihat Pencapaian <x-icon name="arrow-right" :size="16" /></a>
             </div>
         </div>
         <div class="dash-hero__art" aria-hidden="true">
@@ -144,7 +144,7 @@
     <section class="dash-section" aria-labelledby="latestTitle">
         <div class="dash-section__head">
             <h2 class="dash-section__title" id="latestTitle">Laporan terbaru</h2>
-            <a href="{{ route('jelajahi.index') }}" class="dash-link">Lihat semua <x-icon name="arrow-right" :size="16" /></a>
+            <a href="#" class="dash-link">Lihat semua <x-icon name="arrow-right" :size="16" /></a>
         </div>
         <div class="dash-reports">
             @foreach ($reports as $r)

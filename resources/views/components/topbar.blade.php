@@ -18,12 +18,10 @@
             <x-icon name="bell" :size="20" />
             @if ($hasNotif)<span class="cz-icon-btn__dot" aria-hidden="true"></span>@endif
         </button>
-        <a href="{{ route('aduin.index') }}" class="cz-topbar__cta">
+        <a href="#" class="cz-topbar__cta">
             <x-icon name="plus" :size="18" />
             <span>Buat Laporan</span>
         </a>
-        <a href="{{ route('profile.index') }}" class="cz-topbar__avatar" title="Profil">
-            {{ $initials }}
-        </a>
+        <span class="cz-topbar__avatar" title="Profil">{{ $initials }}</span>
     </div>
 </header>

@@ -41,14 +41,13 @@
 
     <div class="cz-sidebar__footer">
         <div class="cz-sidebar__status"><span class="cz-sidebar__status-dot" aria-hidden="true"></span>Sistem siaga 24 jam</div>
-        <a href="{{ route('profile.index') }}" class="cz-sidebar__user">
-            <span class="cz-sidebar__avatar" aria-hidden="true">
-                {{ $initials }}</span>
+        <div class="cz-sidebar__user">
+            <span class="cz-sidebar__avatar" aria-hidden="true">{{ $initials }}</span>
             <span class="cz-sidebar__user-text">
                 <strong>{{ $name }}</strong>
                 <small>{{ $role }}</small>
             </span>
-        </a>
+        </div>
     </div>
 </aside>
 <div class="cz-sidebar-backdrop" data-sidebar-toggle></div>
