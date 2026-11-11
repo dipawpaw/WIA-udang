@@ -7,10 +7,10 @@
 @php
     $items = [
         ['key' => 'beranda',  'label' => 'Beranda',       'icon' => 'home',      'href' => url('/homepage')],
-        ['key' => 'jelajahi', 'label' => 'Jelajahi',      'icon' => 'compass',   'href' => '#'],
-        ['key' => 'aduin',    'label' => 'Aduin',         'icon' => 'megaphone', 'href' => '#'],
-        ['key' => 'aktivitas','label' => 'Aktivitas Saya','icon' => 'clipboard', 'href' => '#'],
-        ['key' => 'wawasan',  'label' => 'Wawasan Kota',  'icon' => 'chart',     'href' => '#'],
+        ['key' => 'jelajahi', 'label' => 'Jelajahi',      'icon' => 'compass',   'href' => url('/jelajahi')],
+        ['key' => 'aduin',    'label' => 'Aduin',         'icon' => 'megaphone', 'href' => url('/aduin')],
+        ['key' => 'aktivitas','label' => 'Aktivitas Saya','icon' => 'clipboard', 'href' => url('/aktivitas')],
+        ['key' => 'wawasan',  'label' => 'Wawasan Kota',  'icon' => 'chart',     'href' => url('/wawasan')],
     ];
     $initials = collect(preg_split('/\s+/', trim($name)))->take(2)->map(fn ($w) => mb_strtoupper(mb_substr($w, 0, 1)))->implode('');
 @endphp
@@ -29,8 +29,8 @@
             @foreach ($items as $item)
                 <li>
                     <a href="{{ $item['href'] }}"
-                       class="cz-sidebar__link {{ $active === $item['key'] ? 'is-active' : '' }}"
-                       @if ($active === $item['key']) aria-current="page" @endif>
+                        class="cz-sidebar__link {{ $active === $item['key'] ? 'is-active' : '' }}"
+                        @if ($active === $item['key']) aria-current="page" @endif>
                         <x-icon :name="$item['icon']" :size="20" />
                         <span>{{ $item['label'] }}</span>
                     </a>
