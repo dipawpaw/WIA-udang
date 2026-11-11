@@ -1523,3 +1523,245 @@ body.cz-dashboard { background: var(--cityzen-muted); }
     .dash-report__main { flex-basis: calc(100% - 72px); }
     .dash-report__side { flex-direction: row; align-items: center; justify-content: space-between; align-self: auto; width: 100%; }
 }
+
+/* ==========================================================================
+   Jelajahi — daftar laporan + peta ilustrasi (semua kelas berawalan .jl-)
+   Menambah varian tombol & backdrop modal yang dipakai bersama halaman lain.
+   ========================================================================== */
+ 
+/* ---------- Tombol varian baru (melengkapi .dash-btn) ---------- */
+.dash-btn--primary { background: var(--cityzen-primary); color: #fff; }
+.dash-btn--primary:hover { background: var(--cityzen-primary-dark); color: #fff; }
+.dash-btn--primary[aria-pressed="true"] { background: var(--cityzen-primary-dark); }
+.dash-btn--secondary { background: #fff; color: var(--cityzen-primary-dark); border-color: var(--cityzen-secondary); }
+.dash-btn--secondary:hover { background: var(--cityzen-muted); border-color: var(--cityzen-primary); color: var(--cityzen-primary-dark); }
+ 
+/* ---------- Modal: overlay & bingkai sesuai DESIGN.md (Level 3) ---------- */
+.modal-backdrop { --bs-backdrop-bg: #081F44; --bs-backdrop-opacity: .5; backdrop-filter: blur(4px); }
+.modal-content {
+    border: 1px solid var(--cityzen-border);
+    border-radius: 16px;
+    box-shadow: 0 20px 32px -8px rgba(8, 31, 68, .14), 0 8px 16px -4px rgba(8, 31, 68, .08);
+}
+ 
+/* ---------- Halaman ---------- */
+.jl { --jl-h: 560px; --st-verified: #3558A8; --st-process: #F59E0B; --st-done: #059669; }
+.jl [hidden] { display: none !important; }
+ 
+.jl-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.jl-head__title { font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.01em; }
+.jl-head__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 16px; margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--cityzen-text-secondary); }
+.jl-head__place { display: inline-flex; align-items: center; gap: 6px; }
+.jl-head__meta strong { font-weight: 600; color: var(--cityzen-text); }
+ 
+/* ---------- Filter ---------- */
+.jl-filters { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; margin-bottom: 20px; }
+.jl-chips { display: flex; gap: 8px; flex: 1 1 auto; min-width: 0; overflow-x: auto; padding: 2px; margin: -2px; scrollbar-width: none; }
+.jl-chips::-webkit-scrollbar { display: none; }
+.jl-selects { display: flex; gap: 8px; }
+ 
+.jl-chip, .jl-select {
+    height: 36px; padding: 0 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 9999px;
+    border: 1px solid var(--cityzen-border);
+    background: #fff; color: var(--cityzen-text);
+    font-family: var(--font-heading); font-weight: 600; font-size: 13px; line-height: 1;
+    white-space: nowrap;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.jl-chip:hover, .jl-select:hover { background: var(--cityzen-muted); border-color: var(--cityzen-secondary); }
+.jl-chip.is-active, .jl-chip.is-active:hover { background: var(--cityzen-primary); border-color: var(--cityzen-primary); color: #fff; }
+.jl-chip:focus-visible, .jl-select:focus-visible { outline: 3px solid var(--cityzen-primary-light); outline-offset: 2px; }
+.jl-select { padding: 0 12px; }
+.jl-select .lc:last-child { color: var(--cityzen-text-secondary); }
+ 
+.jl-menu { min-width: 190px; padding: 6px; border: 1px solid var(--cityzen-border); border-radius: 12px; box-shadow: var(--shadow-2); }
+.jl-menu .dropdown-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 14px; color: var(--cityzen-text);
+}
+.jl-menu .dropdown-item .lc { visibility: hidden; color: var(--cityzen-primary); }
+.jl-menu .dropdown-item.is-active { font-weight: 600; background: var(--cityzen-chip); }
+.jl-menu .dropdown-item.is-active .lc { visibility: visible; }
+.jl-menu .dropdown-item:hover, .jl-menu .dropdown-item:focus { background: var(--cityzen-muted); }
+ 
+/* ---------- Layout dua kolom ---------- */
+.jl-layout { display: grid; grid-template-columns: minmax(340px, 3fr) 5fr; gap: 24px; align-items: start; }
+ 
+/* ---------- Daftar laporan ---------- */
+.jl-list {
+    position: relative;
+    display: flex; flex-direction: column; gap: 16px;
+    max-height: var(--jl-h); overflow-y: auto;
+    padding: 4px; margin: -4px;
+    scrollbar-width: thin; scrollbar-color: var(--cityzen-primary-light) transparent;
+}
+.jl-card {
+    position: relative;
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+.jl-card:hover { border-color: var(--cityzen-primary-light); box-shadow: var(--shadow-2); }
+.jl-card.is-active { border-color: var(--cityzen-primary); box-shadow: 0 0 0 1px var(--cityzen-primary), var(--shadow-2); }
+.jl-card:has(.jl-card__title-btn:focus-visible) { outline: 3px solid var(--cityzen-primary-light); outline-offset: 2px; }
+ 
+.jl-card__icon {
+    width: 64px; height: 64px; border-radius: 12px;
+    background: var(--cityzen-chip); color: var(--cityzen-primary-dark);
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.jl-card__body { flex: 1; min-width: 0; }
+.jl-card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 4px; }
+.jl-card__title { margin: 0; font-size: 15px; line-height: 22px; font-weight: 700; letter-spacing: -0.005em; }
+.jl-card__title-btn { padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.jl-card__title-btn:focus-visible { outline: none; }
+.jl-card__title-btn::after { content: ""; position: absolute; inset: 0; border-radius: inherit; } /* seluruh kartu bisa diklik */
+.jl-card__loc { display: flex; align-items: center; gap: 6px; margin: 4px 0 0; font-size: 13px; line-height: 20px; color: var(--cityzen-text-secondary); }
+.jl-card__side { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
+.jl-card__votes { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--cityzen-text-secondary); }
+ 
+/* Tombol "Lihat detail" di kartu: hanya tampil di mobile, pada kartu aktif (peta ada di bawah daftar) */
+.jl-card__more {
+    display: none; position: relative; z-index: 1;
+    align-items: center; gap: 6px; margin-top: 8px; padding: 6px 0;
+    border: 0; background: none;
+    font-family: var(--font-heading); font-weight: 600; font-size: 13px; color: var(--cityzen-primary-dark);
+}
+.jl-card__more:hover { text-decoration: underline; }
+.jl-card.is-active .jl-card__more { display: inline-flex; }
+ 
+.jl-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 40px 24px; }
+.jl-empty__title { font-size: 18px; line-height: 24px; font-weight: 600; margin-top: 8px; }
+.jl-empty__text { margin: 0 0 8px; font-size: 14px; line-height: 20px; color: var(--cityzen-text-secondary); }
+ 
+/* ---------- Peta ilustrasi ---------- */
+.jl-map {
+    position: relative; height: var(--jl-h);
+    overflow: hidden;
+    border: 1px solid var(--cityzen-border); border-radius: 16px;
+    background: #DCE6F5;
+    box-shadow: var(--shadow-1);
+}
+.jl-map__world { position: absolute; inset: 0; transform: scale(var(--jl-z, 1)); transition: transform .25s ease; }
+.jl-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.jl-map__park { fill: #CFE7D8; }
+.jl-map__roads path { fill: none; stroke: #fff; stroke-width: 22; }
+ 
+.jl-marker {
+    position: absolute; z-index: 1;
+    width: 30px; height: 38px; padding: 0; border: 0; background: none;
+    color: var(--st-verified);
+    transform: translate(-50%, -100%) scale(calc(1 / var(--jl-z, 1))); /* ukuran marker tetap saat peta diperbesar */
+    transform-origin: 50% 100%;
+    filter: drop-shadow(0 2px 3px rgba(8, 31, 68, .28));
+    transition: transform .15s ease;
+    cursor: pointer;
+}
+.jl-marker svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+.jl-marker[data-status="terverifikasi"] { color: var(--st-verified); }
+.jl-marker[data-status="proses"] { color: var(--st-process); }
+.jl-marker[data-status="selesai"] { color: var(--st-done); }
+.jl-marker:hover { transform: translate(-50%, -100%) scale(calc(1.12 / var(--jl-z, 1))); }
+.jl-marker.is-active { z-index: 3; transform: translate(-50%, -100%) scale(calc(1.3 / var(--jl-z, 1))); filter: drop-shadow(0 4px 6px rgba(8, 31, 68, .35)); }
+.jl-marker:focus-visible { outline: 3px solid var(--cityzen-primary-dark); outline-offset: 2px; border-radius: 8px; }
+ 
+.jl-legend {
+    position: absolute; z-index: 4; top: 16px; left: 16px; max-width: calc(100% - 80px);
+    display: flex; flex-wrap: wrap; gap: 4px 16px;
+    margin: 0; padding: 8px 14px; list-style: none;
+    background: #fff; border-radius: 10px; box-shadow: var(--shadow-1);
+    font-size: 13px; line-height: 20px; color: var(--cityzen-text);
+}
+.jl-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.jl-legend__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--st-verified); }
+.jl-legend__dot[data-status="proses"] { background: var(--st-process); }
+.jl-legend__dot[data-status="selesai"] { background: var(--st-done); }
+ 
+.jl-zoom { position: absolute; z-index: 4; top: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; }
+.jl-zoom__btn {
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #fff; color: var(--cityzen-text);
+    border: 1px solid var(--cityzen-border); border-radius: 10px; box-shadow: var(--shadow-1);
+    transition: background-color .15s ease;
+}
+.jl-zoom__btn:hover:not(:disabled) { background: var(--cityzen-muted); }
+.jl-zoom__btn:disabled { opacity: .45; cursor: not-allowed; }
+.jl-zoom__btn:focus-visible { outline: 3px solid var(--cityzen-primary-light); outline-offset: 2px; }
+ 
+.jl-info {
+    position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px;
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px;
+    background: #fff; border: 1px solid var(--cityzen-border); border-radius: 14px; box-shadow: var(--shadow-2);
+}
+.jl-info__icon {
+    width: 56px; height: 56px; border-radius: 12px;
+    background: var(--cityzen-chip); color: var(--cityzen-primary-dark);
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.jl-info__body { flex: 1; min-width: 0; }
+.jl-info__meta { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
+.jl-info__title { margin: 0; font-size: 15px; line-height: 22px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jl-info__sub { margin: 0; font-size: 13px; line-height: 20px; color: var(--cityzen-text-secondary); }
+.jl-info__sub span + span { margin-left: 12px; }
+ 
+/* ---------- Modal detail ---------- */
+.jl-modal .modal-header { align-items: flex-start; gap: 16px; padding: 24px 24px 0; border: 0; }
+.jl-modal .modal-body { padding: 20px 24px; }
+.jl-modal .modal-footer { padding: 16px 24px 24px; border: 0; gap: 12px; }
+.jl-modal .modal-footer > * { margin: 0; }
+.jl-modal__head { display: flex; align-items: flex-start; gap: 16px; min-width: 0; }
+.jl-modal__title { margin: 4px 0 0; font-size: 20px; line-height: 28px; font-weight: 600; }
+.jl-modal__close {
+    width: 40px; height: 40px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--cityzen-border); border-radius: 10px; background: #fff; color: var(--cityzen-text);
+}
+.jl-modal__close:hover { background: var(--cityzen-muted); }
+.jl-modal__close:focus-visible { outline: 3px solid var(--cityzen-primary-light); outline-offset: 2px; }
+.jl-facts { list-style: none; margin: 0 0 20px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+.jl-facts li { display: flex; align-items: flex-start; gap: 12px; color: var(--cityzen-primary-dark); }
+.jl-facts span { display: flex; flex-direction: column; min-width: 0; }
+.jl-facts small { font-size: 12px; line-height: 16px; color: var(--cityzen-text-secondary); }
+.jl-facts strong { font-family: var(--font-heading); font-weight: 600; font-size: 14px; line-height: 20px; color: var(--cityzen-text); overflow-wrap: anywhere; }
+.jl-modal__subtitle { font-size: 14px; line-height: 20px; font-weight: 600; margin-bottom: 6px; }
+.jl-modal__desc { margin: 0; font-size: 15px; line-height: 24px; color: var(--cityzen-text-secondary); }
+ 
+/* ---------- Responsif ---------- */
+@media (max-width: 1199.98px) {
+    .jl-layout { grid-template-columns: minmax(300px, 2fr) 3fr; }
+}
+@media (max-width: 991.98px) {
+    .jl { --jl-h: 460px; }
+    .jl-layout { grid-template-columns: 1fr; }
+    .jl-list { max-height: none; overflow: visible; padding: 0; margin: 0; }
+    .jl-card.is-active .jl-card__more { display: inline-flex; }
+}
+@media (min-width: 992px) {
+    .jl-card__more, .jl-card.is-active .jl-card__more { display: none; }
+}
+@media (max-width: 575.98px) {
+    .jl { --jl-h: 520px; }
+    .jl-legend { top: 12px; left: 12px; max-width: calc(100% - 76px); gap: 4px 12px; padding: 6px 10px; font-size: 12px; }
+    .jl-zoom { top: 12px; right: 12px; }
+    .jl-head { flex-direction: column; gap: 12px; }
+    .jl-head__title { font-size: 28px; line-height: 36px; }
+    .jl-chip, .jl-select { height: 40px; }
+    .jl-card { flex-wrap: wrap; padding: 16px; }
+    .jl-card__icon { width: 56px; height: 56px; }
+    .jl-card__body { flex-basis: calc(100% - 72px); }
+    .jl-card__side { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; }
+    .jl-info { flex-wrap: wrap; padding: 12px; gap: 12px; }
+    .jl-info__icon { width: 48px; height: 48px; }
+    .jl-info__body { flex-basis: calc(100% - 64px); }
+    .jl-info .dash-btn { width: 100%; justify-content: center; }
+    .jl-facts { grid-template-columns: 1fr; }
+    .jl-modal .modal-footer .dash-btn { flex: 1; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .jl-map__world, .jl-marker, .jl-card { transition: none; }
+}
